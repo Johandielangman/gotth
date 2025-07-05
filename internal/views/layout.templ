@@ -1,0 +1,28 @@
+package views
+
+templ header(title string) {
+	<head>
+		<title>{ title }</title>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<script src="/static/script/htmx.min.js"></script>
+		<script src="/static/script/response-targets.js"></script>
+		<link rel="stylesheet" href="/static/css/tailwind.css"/>
+	</head>
+}
+
+templ footer() {
+	<footer class="bg-primary-600 p-4"></footer>
+}
+
+
+templ Layout(contents templ.Component, title string) {
+	@header(title)
+	<body class="flex flex-col h-full">
+		Layout
+		<main class="flex-1 container ">
+			@contents
+		</main>
+		@footer()
+	</body>
+}
