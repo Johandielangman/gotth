@@ -10,3 +10,9 @@ require (
 )
 
 require github.com/kelseyhightower/envconfig v1.4.0
+
+require (
+	github.com/go-chi/httplog/v3 v3.2.2
+	github.com/google/uuid v1.6.0
+	gopkg.in/natefinch/lumberjack.v2 v2.2.1
+)

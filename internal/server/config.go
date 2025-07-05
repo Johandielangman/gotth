@@ -4,6 +4,7 @@ import "github.com/kelseyhightower/envconfig"
 
 type Config struct {
 	Port string `envconfig:"APP_PORT" default:"8080"`
+	Env  string `envconfig:"APP_ENV" default:"development"`
 }
 
 func loadConfig() (*Config, error) {

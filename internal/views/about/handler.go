@@ -2,13 +2,18 @@ package about
 
 import (
 	"gotth/internal/views"
+	"log/slog"
 	"net/http"
 )
 
-type AboutHandler struct{}
+type AboutHandler struct {
+	logger *slog.Logger
+}
 
-func NewAboutHandler() *AboutHandler {
-	return &AboutHandler{}
+func NewAboutHandler(logger *slog.Logger) *AboutHandler {
+	return &AboutHandler{
+		logger: logger,
+	}
 }
 
 func (h *AboutHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {

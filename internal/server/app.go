@@ -4,29 +4,57 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
+	"log/slog"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
-	_ "github.com/joho/godotenv/autoload"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 type App struct {
 	router http.Handler
 	config *Config
+	logger *slog.Logger
 }
 
 func NewApp() *App {
 	app := &App{
 		config: MustLoadConfig(),
 	}
-	app.LoadRoutes()
+	app.initLogger()
+	app.loadRoutes()
 	return app
 }
 
+func (a *App) initLogger() {
+	logFile := &lumberjack.Logger{
+		Filename:   "./logs/app.log",
+		MaxSize:    10, // megabytes
+		MaxBackups: 5,  // keep last 5 files
+		MaxAge:     30, // days
+		Compress:   true,
+	}
+
+	handler := slog.NewJSONHandler(
+		io.MultiWriter(os.Stdout, logFile),
+		&slog.HandlerOptions{
+			Level: slog.LevelInfo,
+		},
+	)
+
+	a.logger = slog.New(handler).With(
+		slog.String("app", "gotth"),
+		slog.String("version", "v1.0.0"),
+		slog.String("env", a.config.Env),
+	)
+}
+
 func (a *App) Start() {
+	a.logger.Info("Starting the server", slog.String("port", a.config.Port))
 	killSig := make(chan os.Signal, 1)
 
 	signal.Notify(killSig, os.Interrupt, syscall.SIGTERM)

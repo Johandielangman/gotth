@@ -19,3 +19,6 @@ dev:
 	@echo "Starting development environment..."
 	@make templ & sleep 1
 	@air
+
+tail:
+	@tail -f ./logs/app.log | jq -C
