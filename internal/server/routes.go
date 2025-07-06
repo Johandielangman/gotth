@@ -1,8 +1,10 @@
 package server
 
 import (
+	"gotth/internal"
 	"gotth/internal/views/about"
 	"gotth/internal/views/home"
+	"io/fs"
 	"log/slog"
 	"net/http"
 
@@ -20,21 +22,29 @@ func (a *App) loadRoutes() {
 	}))
 	router.Use(TraceMiddleware)
 
-	fileServer := http.FileServer(http.Dir("./internal/static"))
-	router.Handle("/static/*", http.StripPrefix("/static/", fileServer))
-
+	a.registerFileServer(router)
 	router.Route("/", a.registerHomeRouter)
 	router.Route("/about", a.registerAboutRouter)
 
 	a.router = router
 }
 
+func (a *App) registerFileServer(router chi.Router) {
+	staticFS, err := fs.Sub(internal.StaticFiles, "static")
+	if err != nil {
+		panic(err)
+	}
+
+	staticHandler := http.FileServer(http.FS(staticFS))
+	router.Handle("/static/*", http.StripPrefix("/static/", staticHandler))
+}
+
 func (a *App) registerHomeRouter(router chi.Router) {
 	homeHandler := home.NewHomeHandler(a.logger)
-	router.Get("/", homeHandler.ServeHTTP)
+	router.Get("/", homeHandler.ServeGetHTTP)
 }
 
 func (a *App) registerAboutRouter(router chi.Router) {
 	aboutHandler := about.NewAboutHandler(a.logger)
-	router.Get("/", aboutHandler.ServeHTTP)
+	router.Get("/", aboutHandler.ServeGetHTTP)
 }

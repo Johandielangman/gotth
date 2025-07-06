@@ -16,7 +16,7 @@ func NewAboutHandler(logger *slog.Logger) *AboutHandler {
 	}
 }
 
-func (h *AboutHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h *AboutHandler) ServeGetHTTP(w http.ResponseWriter, r *http.Request) {
 	c := About()
 	err := views.Render(w, r, views.Layout(c, "About"))
 	views.HandleErr(err, w)

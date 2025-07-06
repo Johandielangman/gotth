@@ -16,7 +16,7 @@ func NewHomeHandler(logger *slog.Logger) *HomeHandler {
 	}
 }
 
-func (h *HomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h *HomeHandler) ServeGetHTTP(w http.ResponseWriter, r *http.Request) {
 	h.logger.Info("Handling the home")
 	c := Home()
 	err := views.Render(w, r, views.Layout(c, "Home"))

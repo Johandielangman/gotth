@@ -20,5 +20,8 @@ dev:
 	@make templ & sleep 1
 	@air
 
-tail:
+vtail:
 	@tail -f ./logs/app.log | jq -C
+
+tail:
+	@tail -f ./logs/app.log | jq -r '"\(.time) \(.level) \(.msg)"'

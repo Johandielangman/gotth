@@ -68,17 +68,17 @@ func (a *App) Start() {
 		err := srv.ListenAndServe()
 
 		if errors.Is(err, http.ErrServerClosed) {
-			fmt.Println("Server shutdown complete")
+			a.logger.Info("Server closed gracefully")
 		} else if err != nil {
-			fmt.Println("Error starting server:", err)
+			a.logger.Error("Error starting server", slog.String("error", err.Error()))
 			os.Exit(1)
 		}
 	}()
 
-	fmt.Println("Server started")
+	a.logger.Info("Server is running", slog.String("address", srv.Addr))
 	<-killSig
 
-	fmt.Println("Shutting down server")
+	a.logger.Info("Received shutdown signal, shutting down server...")
 
 	// Create a context with a timeout for shutdown
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -86,10 +86,10 @@ func (a *App) Start() {
 
 	// Attempt to gracefully shut down the server
 	if err := srv.Shutdown(ctx); err != nil {
-		fmt.Println("Error during server shutdown:", err)
+		a.logger.Error("Error shutting down server", slog.String("error", err.Error()))
 		os.Exit(1)
 	}
 
-	fmt.Println("Server shutdown complete")
-	fmt.Println("Goodbye! 👋")
+	a.logger.Info("Server shutdown complete")
+	a.logger.Info("Goodbye! 👋")
 }
