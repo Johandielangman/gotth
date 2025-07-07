@@ -5,9 +5,13 @@ templ header(title string) {
 		<title>{ title }</title>
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="preconnect" href="https://fonts.googleapis.com"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/>
+		<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet"/>
 		<script src="/static/script/htmx.min.js"></script>
 		<script src="/static/script/response-targets.js"></script>
 		<link rel="stylesheet" href="/static/css/tailwind.css"/>
+		<link rel="icon" href="/static/images/favicon.ico" type="image/x-icon"/>
 	</head>
 }
 
@@ -15,12 +19,31 @@ templ footer() {
 	<footer class="bg-primary-600 p-4"></footer>
 }
 
+templ nav(){
+	<nav class="bg-codera-blue-600 shadow-lg rounded-lg mx-4 mt-4 mb-8">
+		<div class="max-w-7xl mx-auto px-6 py-4">
+			<div class="flex items-center justify-between">
+				<div class="flex space-x-6">
+					<a href="/" class="text-white hover:text-codera-blue-200 font-medium transition-colors duration-200">
+						Home
+					</a>
+					<a href="/about" class="text-white hover:text-codera-blue-200 font-medium transition-colors duration-200">
+						About
+					</a>
+				</div>
+				<h1 class="text-white text-2xl font-bold flex-1 text-center">GOTTH Demo</h1>
+				<div class="w-24"></div>
+			</div>
+		</div>
+	</nav>
+}
+
 
 templ Layout(contents templ.Component, title string) {
 	@header(title)
-	<body class="flex flex-col h-full m-5 p-2">
-		Layout of the year
-		<main class="flex-1 container ">
+	@nav()
+	<body class="font-lato min-h-screen bg-gray-50">
+		<main class="flex-1 container mx-auto px-4">
 			@contents
 		</main>
 		@footer()

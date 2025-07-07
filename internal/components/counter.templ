@@ -3,12 +3,15 @@ package components
 import "fmt"
 
 templ CounterWithButton(cnt int) {
-    <div id="counter-wrapper">
-        <div id="count">Count: { cnt }</div>
+    <div id="counter-wrapper" class="flex flex-col items-center justify-center space-y-6 py-12">
+        <div id="count" class="text-4xl font-bold text-gray-800 text-center">
+            Count: { cnt }
+        </div>
         <button
             hx-post={ fmt.Sprintf("/count/%d", cnt) }
             hx-target="#counter-wrapper"
             hx-swap="outerHTML"
+            class="bg-codera-red-500 hover:bg-codera-red-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform transition hover:scale-105 focus:outline-none focus:ring-4 focus:ring-codera-red-300"
         >
             Count
         </button>
