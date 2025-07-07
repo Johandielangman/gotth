@@ -1,13 +1,16 @@
 package components
 
-import "strconv"
+import "fmt"
 
 templ CounterWithButton(cnt int) {
     <div id="counter-wrapper">
-        <div id="count">Count: { strconv.Itoa(cnt) }</div>
-        <form hx-post="/count" hx-target="#counter-wrapper" hx-swap="outerHTML">
-            <input type="hidden" name="current" value={ strconv.Itoa(cnt) }/>
-            <button type="submit">Count</button>
-        </form>
+        <div id="count">Count: { cnt }</div>
+        <button
+            hx-post={ fmt.Sprintf("/count/%d", cnt) }
+            hx-target="#counter-wrapper"
+            hx-swap="outerHTML"
+        >
+            Count
+        </button>
     </div>
 }

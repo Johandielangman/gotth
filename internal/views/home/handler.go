@@ -6,6 +6,8 @@ import (
 	"log/slog"
 	"net/http"
 	"strconv"
+
+	"github.com/go-chi/chi/v5"
 )
 
 type HomeHandler struct {
@@ -26,26 +28,18 @@ func (h *HomeHandler) ServeGetHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *HomeHandler) Count(w http.ResponseWriter, r *http.Request) {
-	h.logger.Info("Counting a click - DEBUG START")
+	h.logger.Info("Counting a click")
 
-	// Parse form first
-	err := r.ParseForm()
+	currentStr := chi.URLParam(r, "count")
+
+	cnt, err := strconv.Atoi(currentStr)
 	if err != nil {
-		h.logger.Error("Failed to parse form", "error", err)
-	}
-
-	current := r.FormValue("current")
-	h.logger.Info("Received current value", "current", current, "formData", r.Form)
-
-	cnt, err := strconv.Atoi(current)
-	if err != nil {
-		h.logger.Error("Failed to parse current value", "error", err, "current", current)
+		h.logger.Error("Failed to parse count from URL", "error", err, "count", currentStr)
 		cnt = 0
 	}
 	cnt++
 
 	h.logger.Info("New count", "count", cnt)
 
-	// Return updated Counter component
 	components.CounterWithButton(cnt).Render(r.Context(), w)
 }
