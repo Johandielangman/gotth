@@ -16,6 +16,8 @@ import (
 func (a *App) loadRoutes() {
 	router := chi.NewRouter()
 
+	router.Use(TextHTMLMiddleware)
+	router.Use(CSPMiddleware)
 	router.Use(middleware.Heartbeat("/ping"))
 	router.Use(httplog.RequestLogger(a.logger, &httplog.Options{
 		Level: slog.LevelInfo,
