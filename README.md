@@ -7,7 +7,7 @@
 
 A modern, fully configured starter template for building fast, type-safe web applications using Go, HTMX, Tailwind CSS, Alpine.js, and Templ. This stack provides an incredible developer experience with type safety from your database all the way to your HTML.
 
-![demo](https://raw.githubusercontent.com/Johandielangman/gotth/main/demo.mp4)
+![demo](demo.gif)
 
 ## ✨ Features
 
