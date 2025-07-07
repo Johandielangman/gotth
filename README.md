@@ -1,4 +1,4 @@
-# 🚀 GOTH Stack Complete Setup
+# 🚀 GOTH Stack
 
 [![Go Version](https://img.shields.io/badge/Go-1.23.2-00ADD8?style=flat-square&logo=go)](https://golang.org/doc/go1.23)
 [![HTMX](https://img.shields.io/badge/HTMX-1.9.11-purple?style=flat-square)](https://htmx.org)
@@ -29,7 +29,7 @@ Before you begin, ensure you have the following tools installed:
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/Johandielangman/gotth
 cd gotth
 
 # Install Go dependencies
@@ -45,13 +45,13 @@ npm install
 ```bash
 go install github.com/a-h/templ/cmd/templ@latest
 ```
-📚 [Templ Documentation](https://templ.guide)
+see 📚 [Templ Documentation](https://templ.guide)
 
 #### Install Air (Hot Reload)
 ```bash
 go install github.com/cosmtrek/air@latest
 ```
-📚 [Air Documentation](https://github.com/cosmtrek/air)
+see 📚 [Air Documentation](https://github.com/cosmtrek/air)
 
 #### Optional: Pre-commit Hooks
 If you want to have pre-commits for code quality:

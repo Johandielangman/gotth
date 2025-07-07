@@ -1,3 +1,13 @@
+// ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
+//      /\_/\
+//     ( o.o )
+//      > ^ <
+//
+// Author: Johan Hanekom
+// Date: July 2025
+//
+// ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
+
 package server
 
 import (
@@ -11,6 +21,7 @@ import (
 	"github.com/google/uuid"
 )
 
+// Middleware that will add a trace ID to the request context.
 func TraceMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		traceID := uuid.New().String()
@@ -24,6 +35,7 @@ func TraceMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+// See: https://github.com/TomDoesTech/GOTTH/blob/main/internal/middleware/middleware.go
 func CSPMiddleware(next http.Handler) http.Handler {
 	// Static hash for HTMX CSS - this is public and doesn't change
 	const htmxCSSHash = "sha256-pgn1TCGZX6O77zDvy0oTODMOxemn0oj0LeCnQTRj7Kg="

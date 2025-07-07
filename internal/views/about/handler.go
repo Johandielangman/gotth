@@ -1,3 +1,13 @@
+// ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
+//      /\_/\
+//     ( o.o )
+//      > ^ <
+//
+// Author: Johan Hanekom
+// Date: July 2025
+//
+// ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
+
 package about
 
 import (
@@ -17,7 +27,10 @@ func NewAboutHandler(logger *slog.Logger) *AboutHandler {
 }
 
 func (h *AboutHandler) ServeGetHTTP(w http.ResponseWriter, r *http.Request) {
+	// ====> (1) DEFINE A NEW ABOUT PAGE
 	c := About()
+
+	// ====> (2) RENDER AND WRITE
 	err := views.Render(w, r, views.Layout(c, "About"))
 	views.HandleErr(err, w)
 }
