@@ -42,6 +42,7 @@ func (a *App) registerFileServer(router chi.Router) {
 func (a *App) registerHomeRouter(router chi.Router) {
 	homeHandler := home.NewHomeHandler(a.logger)
 	router.Get("/", homeHandler.ServeGetHTTP)
+	router.Post("/count", homeHandler.Count)
 }
 
 func (a *App) registerAboutRouter(router chi.Router) {

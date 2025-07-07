@@ -1,0 +1,13 @@
+package components
+
+import "strconv"
+
+templ CounterWithButton(cnt int) {
+    <div id="counter-wrapper">
+        <div id="count">Count: { strconv.Itoa(cnt) }</div>
+        <form hx-post="/count" hx-target="#counter-wrapper" hx-swap="outerHTML">
+            <input type="hidden" name="current" value={ strconv.Itoa(cnt) }/>
+            <button type="submit">Count</button>
+        </form>
+    </div>
+}
